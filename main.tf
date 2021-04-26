@@ -1,7 +1,7 @@
 terraform {
   backend "s3" {
-    bucket = "cla-mozart-state-bucket"
-    key    = "production/terraform.tfstate"
+    bucket = "cla-production-state-bucket"
+    key    = "mozart/terraform.tfstate"
     region = "eu-west-2"
   }
 }
