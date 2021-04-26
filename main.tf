@@ -1,7 +1,7 @@
 terraform {
   backend "s3" {
-    bucket = "cla-production-state-bucket"
-    key    = "mozart/terraform.tfstate"
+    bucket = "cla-production-state"
+    key    = "website-infra/terraform.tfstate"
     region = "eu-west-2"
   }
 }
@@ -11,11 +11,14 @@ provider "aws" {
   default_tags {
     tags = local.tags
   }
+  assume_role {
+    role_arn = "arn:aws:iam::${var.aws_account_id}:role/website-infra"
+  }
 }
 
 locals {
   tags = {
-    "tf:stack" = "mozart-infra"
+    "tf:stack" = "website-infra"
   }
 }
 
@@ -26,4 +29,4 @@ terraform {
       version = "~> 3.0"
     }
   }
-} 
+}
