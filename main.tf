@@ -3,6 +3,9 @@ terraform {
     bucket = "cla-production-state"
     key    = "website-infra/terraform.tfstate"
     region = "eu-west-2"
+    assume_role {
+      role_arn = "arn:aws:iam::${var.aws_account_id}:role/website-infra"
+    }
   }
 }
 
