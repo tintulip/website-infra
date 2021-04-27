@@ -3,9 +3,11 @@
 Manages infrastructure for team mozart.
 
 ## Assumptions
+The following resources have been created manually through a protected end point.
+
 - State bucket to already have been created.
 - IAM user and role 
-- Role has s3 policy attached to it.
+- Role has an amazon managed `AmazonS3FullAccess` policy attached to it.
 - IAM user Secret and Access Key stored in GitHub Secrets.
 
 
