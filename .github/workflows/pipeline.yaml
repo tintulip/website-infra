@@ -94,3 +94,5 @@ jobs:
         terraform_version: ${{ env.tf_version }}
     - name: Terraform Init
       run: terraform init
+    - name: Terraform Apply
+      run: terraform apply -no-color -auto-approve -input=false production.tfplan
