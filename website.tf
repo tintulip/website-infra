@@ -1,4 +1,6 @@
 resource "aws_s3_bucket" "website_root" {
+  #checkov:skip=CKV_AWS_20:The bucket is a public static content host
+  #checkov:skip=CKV_AWS_52:Bucket is created by a pipeline
   bucket = "${var.website_name}-root"
   acl    = "public-read" #tfsec:ignore:AWS001 
   tags = {
@@ -27,6 +29,8 @@ resource "aws_s3_bucket" "website_root" {
 }
 
 resource "aws_s3_bucket" "website_logs" {
+  #checkov:skip=CKV_AWS_52:Bucket is created by a pipeline
+
   bucket = "${var.website_name}-logs"
   acl    = "log-delivery-write"
 
