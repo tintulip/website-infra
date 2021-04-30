@@ -21,6 +21,12 @@ jobs:
       uses: triat/terraform-security-scan@v2.2.1
       with:
         tfsec_actions_comment: false
+    - name: checkov-action
+      uses: bridgecrewio/checkov-action@v12.0.1
+      with:
+        directory: .
+        quiet: true
+        framework: terraform
 
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v1
