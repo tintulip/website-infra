@@ -1,19 +1,21 @@
-name: Terraform CI
+name: Infra Deploy
 
 on:
+  workflow_dispatch: # manual trigger
   push:
     branches:
     - main
 
-jobs:
-  terraform:
-    name: Terraform
-    runs-on: ubuntu-latest
-    env:
-      AWS_ACCESS_KEY_ID: ${{ secrets.WEBSITE_INFRA_AWS_ACCESS_KEY_ID }}
-      AWS_SECRET_ACCESS_KEY: ${{ secrets.WEBSITE_INFRA_AWS_SECRET_ACCESS_KEY }}
-      AWS_REGION: eu-west-2
+env:
+  tf_version: 0.15.1
+  AWS_ACCESS_KEY_ID: ${{ secrets.WEBSITE_INFRA_AWS_ACCESS_KEY_ID }}
+  AWS_SECRET_ACCESS_KEY: ${{ secrets.WEBSITE_INFRA_AWS_SECRET_ACCESS_KEY }}
+  AWS_REGION: eu-west-2
 
+jobs:
+  terraform_checks:
+    name: Terraform checks
+    runs-on: ubuntu-latest
     steps:
     - name: Checkout
       uses: actions/checkout@v2
@@ -31,7 +33,7 @@ jobs:
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v1
       with:
-        terraform_version: 0.15.1
+        terraform_version: ${{ env.tf_version }}
 
     - name: Terraform Format
       run: terraform fmt -check -recursive
@@ -42,8 +44,53 @@ jobs:
     - name: Terraform Validate
       run: terraform validate -no-color
 
+  prod_infra_plan:
+    needs: terraform_checks
+    runs-on: ubuntu-latest
+    env:
+      env_name: production
+    environment:
+      name: production
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v1
+      with:
+        terraform_version: ${{ env.tf_version }}
+    - name: Terraform Init
+      run: terraform init
+
     - name: Terraform Plan
       run: terraform plan -no-color -out=production.tfplan -var-file=env_vars/production.tfvars
 
     - name: Show Terraform Plan
       run: terraform show -no-color production.tfplan
+
+    - name: Publish artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: ${{ env.env_name }}.tfplan
+        path: ${{ github.workspace }}/${{ env.env_name }}.tfplan
+
+  prod_infra_apply:
+    needs: prod_infra_plan
+    runs-on: ubuntu-latest
+    env:
+      env_name: production
+    environment:
+      name: production
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Download plan
+      uses: actions/download-artifact@v2
+      with:
+        name: ${{ env.env_name }}.tfplan
+        path: ${{ github.workspace }}/
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v1
+      with:
+        terraform_version: ${{ env.tf_version }}
+    - name: Terraform Init
+      run: terraform init
