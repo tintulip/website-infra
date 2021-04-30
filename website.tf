@@ -1,6 +1,6 @@
 resource "aws_s3_bucket" "website_root" {
   bucket = "${var.website_name}-root"
-  acl    = "public-read"
+  acl    = "public-read" #tfsec:ignore:AWS001 
   tags = {
     Name        = "CLA Website"
     Environment = "Production"
