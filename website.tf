@@ -146,7 +146,9 @@ resource "aws_cloudfront_distribution" "cla-website" {
   }
 
   restrictions {
-    restriction_type = "none"
+    geo_restriction {
+      restriction_type = "none"
+    }
   }
 }
 
