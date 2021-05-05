@@ -80,7 +80,7 @@ resource "aws_cloudfront_origin_access_identity" "cla-website" {
 data "aws_iam_policy_document" "cla-website-accessible-from-cdn" {
   statement {
     actions   = ["s3:GetObject"]
-    resources = ["${aws_s3_bucket.cla-website-root.arn}/*"]
+    resources = ["${aws_s3_bucket.website_root.arn}/*"]
 
     principals {
       type        = "AWS"
@@ -90,7 +90,7 @@ data "aws_iam_policy_document" "cla-website-accessible-from-cdn" {
 }
 
 resource "aws_s3_bucket_policy" "cla-website-accessible-from-cdn" {
-  bucket = aws_s3_bucket.cla-website-root.id
+  bucket = aws_s3_bucket.website_root.id
   policy = data.aws_iam_policy_document.cla-website-accessible-from-cdn.json
 }
 
