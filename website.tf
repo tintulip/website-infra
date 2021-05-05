@@ -1,9 +1,9 @@
 resource "aws_s3_bucket" "website_root" {
-  #checkov:skip=CKV_AWS_20:The bucket is a public static content host
   #checkov:skip=CKV_AWS_52:Bucket is created by a pipeline
   #checkov:skip=CKV_AWS_144:Not required to have cross region enabled
   bucket = "${var.website_name}-root"
-  acl    = "public-read" #tfsec:ignore:AWS001 
+
+  acl = "private"
   tags = {
     Name        = "CLA Website"
     Environment = "Production"
