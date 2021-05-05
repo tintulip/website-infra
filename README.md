@@ -1,9 +1,10 @@
 # website-infra
 
-Manages infrastructure for team mozart.
+Manages infrastructure for team Mozart.
 
 ## Assumptions
-The following resources have been created manually through a protected end point.
+
+The following resources have been created through a protected endpoint.
 
 - State bucket to already have been created.
 - IAM user and role 
@@ -11,10 +12,12 @@ The following resources have been created manually through a protected end point
 - IAM user Secret and Access Key stored in GitHub Secrets.
 
 ## Variables
+
 - AWS Account ID 
 - Website Name
 
-## Created
+## Creates
+
 - Two S3 buckets created
 - Logging bucket and website bucket.
 
