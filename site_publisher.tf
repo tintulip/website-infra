@@ -59,7 +59,7 @@ data "aws_iam_policy_document" "site_publisher_trust_role_policy" {
 
     principals {
       type        = "AWS"
-      identifiers = [aws_iam_group.site_publisher.arn]
+      identifiers = [aws_iam_user.site_publisher.arn]
     }
   }
 }
