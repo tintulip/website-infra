@@ -130,6 +130,13 @@ resource "aws_cloudfront_distribution" "cla-website" {
     viewer_protocol_policy = "redirect-to-https"
     default_ttl            = 86400
     max_ttl                = 31536000
+
+    forwarded_values {
+      query_string = false
+      cookies {
+        forward = "none"
+      }
+    }
   }
 
   price_class = "PriceClass_100"
