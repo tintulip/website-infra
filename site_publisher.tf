@@ -28,7 +28,7 @@ output "secret" {
 }
 
 output "access_key" {
-  value = aws_iam_access_key.site_publisher_access_key.id
+  value = aws_iam_access_key.site_publisher_key.id
 }
 
 resource "aws_iam_group_membership" "site_publisher" {
