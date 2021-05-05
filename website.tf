@@ -115,7 +115,7 @@ resource "aws_cloudfront_distribution" "cla-website" {
 
   logging_config {
     include_cookies = false
-    bucket          = aws_s3_bucket.website_logs.id
+    bucket          = aws_s3_bucket.website_logs.bucket_domain_name
     prefix          = "cdn/"
   }
 
