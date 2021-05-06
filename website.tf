@@ -120,8 +120,6 @@ resource "aws_cloudfront_distribution" "cla-website" {
     prefix          = "cdn/"
   }
 
-  # aliases = ["cla.tintulip.??"]
-
   default_cache_behavior {
     allowed_methods  = ["GET", "HEAD"]
     cached_methods   = ["GET", "HEAD"]
@@ -148,7 +146,6 @@ resource "aws_cloudfront_distribution" "cla-website" {
   }
 
   viewer_certificate {
-    # this needs to change to an ACM cert as part of #15, but we don't have it yet!
     cloudfront_default_certificate = true
     minimum_protocol_version       = "TLSv1.2_2019"
   }
