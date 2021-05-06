@@ -1,6 +1,7 @@
 resource "aws_s3_bucket" "website_root" {
   #checkov:skip=CKV_AWS_52:Bucket is created by a pipeline
   #checkov:skip=CKV_AWS_144:Not required to have cross region enabled
+  #checkov:skip=CKV_AWS_145:Cannot use KMS with CF distributions
   bucket = "${var.website_name}-root"
 
   acl = "private"
@@ -22,7 +23,7 @@ resource "aws_s3_bucket" "website_root" {
   server_side_encryption_configuration {
     rule {
       apply_server_side_encryption_by_default {
-        sse_algorithm = "aws:kms"
+        sse_algorithm = "AES256"
 
       }
     }
