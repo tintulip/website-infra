@@ -22,15 +22,6 @@ resource "aws_iam_access_key" "site_publisher_key" {
 
 }
 
-output "secret" {
-  value = aws_iam_access_key.site_publisher_key.encrypted_secret
-
-}
-
-output "access_key" {
-  value = aws_iam_access_key.site_publisher_key.id
-}
-
 resource "aws_iam_group_membership" "site_publisher" {
   name = "site-publisher-group-membership"
 
