@@ -60,7 +60,8 @@ resource "aws_iam_role" "site_publisher_role" {
 data "aws_iam_policy_document" "site_publisher_trust_role_policy" {
   statement {
     actions = [
-      "sts:AssumeRole"
+      "sts:AssumeRole",
+      "sts:TagSession"
     ]
 
     principals {
