@@ -86,9 +86,8 @@ data "aws_iam_policy_document" "site_publisher_assume_role" {
 data "aws_iam_policy_document" "publish_website_s3_policy" {
   statement {
     actions = [
-      "s3:GetBucket*",
-      "s3:ListBucket",
-      "s3:PutBucketWebsite"
+      "s3:GetBucketLocation",
+      "s3:ListBucket"
     ]
 
     resources = [aws_s3_bucket.website_root.arn]
