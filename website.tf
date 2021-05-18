@@ -107,7 +107,7 @@ data "aws_iam_policy_document" "cla-website-accessible-from-cdn" {
 data "aws_iam_policy_document" "cla-website-logs-document" {
   statement {
     actions   = ["s3:PutReplicationConfiguration"]
-    resources = ["${aws_s3_bucket.website_logs.arn}/*"]
+    resources = [aws_s3_bucket.website_logs.arn]
   }
 }
 
