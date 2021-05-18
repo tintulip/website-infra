@@ -106,7 +106,7 @@ data "aws_iam_policy_document" "publish_website_s3_policy" {
 }
 
 resource "aws_iam_role" "log-replication" {
-  name = "log_replication"
+  name = "log-replication"
 
   assume_role_policy = <<POLICY
 {
@@ -126,7 +126,7 @@ POLICY
 }
 
 resource "aws_iam_policy" "log-replication-policy" {
-  name = "log-replication-policy"
+  name = "log-replication"
 
   policy = <<POLICY
 {
