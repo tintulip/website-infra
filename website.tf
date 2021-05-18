@@ -51,6 +51,20 @@ resource "aws_s3_bucket" "website_logs" {
   versioning {
     enabled = true
   }
+  replication_configuration {
+    role = aws_iam_role.log-replication.arn
+
+    rules {
+      id     = "cla-archive-app-logs"
+      prefix = "cla-archive"
+      status = "Enabled"
+
+      destination {
+        bucket        = "arn:aws:s3:::cla-app-logs"
+        storage_class = "STANDARD"
+      }
+    }
+  }
   server_side_encryption_configuration {
     rule {
       apply_server_side_encryption_by_default {
