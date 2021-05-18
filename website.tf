@@ -104,6 +104,20 @@ data "aws_iam_policy_document" "cla-website-accessible-from-cdn" {
   }
 }
 
+data "aws_iam_policy_document" "cla-website-logs-document" {
+  statement {
+    actions   = ["s3:PutReplicationConfiguration"]
+    resources = ["${aws_s3_bucket.website_logs.arn}/*"]
+  }
+}
+
+resource "aws_s3_bucket_policy" "cla-website-logs-document" {
+  bucket = aws_s3_bucket.website_logs.id
+  policy = data.aws_iam_policy_document.cla-website-logs-document.json
+}
+
+
+
 resource "aws_s3_bucket_policy" "cla-website-accessible-from-cdn" {
   bucket = aws_s3_bucket.website_root.id
   policy = data.aws_iam_policy_document.cla-website-accessible-from-cdn.json
