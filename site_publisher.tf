@@ -134,6 +134,7 @@ data "aws_iam_policy_document" "log-replication-policy" {
   statement {
     actions = [
       "s3:GetReplicationConfiguration",
+      "s3:PutReplicationConfiguration",
       "s3:ListBucket"
     ]
     resources = [
