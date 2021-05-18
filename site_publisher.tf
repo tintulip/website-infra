@@ -161,7 +161,7 @@ data "aws_iam_policy_document" "log-replication-policy" {
     ]
 
     resources = [
-      "arn:aws:s3::cla-app-logs/*"
+      "arn:aws:s3:::cla-app-logs/*"
     ]
   }
 }
