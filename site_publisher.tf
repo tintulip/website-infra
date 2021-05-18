@@ -127,7 +127,7 @@ POLICY
 
 resource "aws_iam_policy" "log-replication-policy" {
   policy = data.aws_iam_policy_document.log-replication-policy.json
-  name   = "log-replication-policy"
+  name   = "log-replication"
 }
 
 data "aws_iam_policy_document" "log-replication-policy" {
