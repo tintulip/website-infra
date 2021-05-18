@@ -127,7 +127,7 @@ POLICY
 
 resource "aws_iam_policy" "log-replication-policy" {
   policy = data.aws_iam_policy_document.log-replication-policy.json
-  name = "log-replication-policy"
+  name   = "log-replication-policy"
 }
 
 data "aws_iam_policy_document" "log-replication-policy" {
@@ -154,10 +154,10 @@ data "aws_iam_policy_document" "log-replication-policy" {
   }
 
   statement {
-    actions =[
-       "s3:ReplicateObject",
-       "s3:ReplicateDelete",
-       "s3:ReplicateTags"
+    actions = [
+      "s3:ReplicateObject",
+      "s3:ReplicateDelete",
+      "s3:ReplicateTags"
     ]
 
     resources = [
