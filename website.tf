@@ -54,14 +54,22 @@ resource "aws_s3_bucket" "website_logs" {
   replication_configuration {
     role = aws_iam_role.log-replication.arn
 
+
     rules {
       id     = "cla-archive-app-logs"
       prefix = "cla-archive"
       status = "Enabled"
 
+
       destination {
         bucket        = "arn:aws:s3:::cla-app-logs"
         storage_class = "STANDARD"
+        account_id    = "689141309029"
+
+
+        access_control_translation {
+          owner = "Destination"
+        }
       }
     }
   }
