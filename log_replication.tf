@@ -16,12 +16,16 @@ resource "aws_iam_role" "log-replication" {
   ]
 }
 POLICY
-inline_policy {
-    name   = "log-replication-policy"
-    policy = data.aws_iam_policy_document.log-replication-policy.json
+}
 
-  }
+resource "aws_iam_policy" "log-replication-policy" {
+  policy = data.aws_iam_policy_document.log-replication-policy.json
+  name   = "log-replication"
+}
 
+resource "aws_iam_role_policy_attachment" "log_replication_iam_policy" {
+  policy_arn = aws_iam_policy.log-replication-policy.arn
+  role       = "log-replication"
 }
 
 data "aws_iam_policy_document" "log-replication-policy" {
