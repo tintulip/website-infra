@@ -179,10 +179,9 @@ data "aws_iam_policy_document" "cla_website_logs" {
   statement {
     actions   = ["s3:PutReplicationConfiguration"]
     resources = [aws_s3_bucket.website_logs.arn]
-    condition {
-      test     = "StringEquals"
-      variable = "aws:PrincipalArn"
-      values   = ["arn:aws:iam::073232250817:role/log-replication"]
+    principals {
+      identifiers = [aws_iam_role.log_replication.arn]
+      type        = "AWS"
     }
   }
 }
