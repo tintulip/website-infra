@@ -127,6 +127,21 @@ resource "aws_s3_bucket" "website_logs" {
   versioning {
     enabled = true
   }
+
+  lifecycle_rule {
+    id      = "log-expire"
+    enabled = true
+
+    tags = {
+      rule      = "log-expire"
+      autoclean = "true"
+    }
+
+    expiration {
+      days = 30
+    }
+  }
+
   replication_configuration {
     role = aws_iam_role.log_replication.arn
 
