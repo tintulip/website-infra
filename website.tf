@@ -40,57 +40,6 @@ resource "aws_s3_bucket_public_access_block" "website_root" {
 }
 
 
-resource "aws_s3_bucket" "website_logs" {
-  #checkov:skip=CKV_AWS_52:Bucket is created by a pipeline
-  #checkov:skip=CKV_AWS_18:Access logging needs to go into a cross account bucket
-  #checkov:skip=CKV_AWS_144:Not required to have cross region enabled
-
-  bucket = "${var.website_name}-logs"
-  acl    = "log-delivery-write"
-
-  versioning {
-    enabled = true
-  }
-  replication_configuration {
-    role = aws_iam_role.log-replication.arn
-
-
-    rules {
-      id     = "cla-archive-app-logs"
-      prefix = "cla-archive"
-      status = "Enabled"
-
-
-      destination {
-        bucket        = "arn:aws:s3:::cla-app-logs"
-        storage_class = "STANDARD"
-        account_id    = "689141309029"
-
-
-        access_control_translation {
-          owner = "Destination"
-        }
-      }
-    }
-  }
-  server_side_encryption_configuration {
-    rule {
-      apply_server_side_encryption_by_default {
-        sse_algorithm = "aws:kms"
-      }
-    }
-  }
-}
-
-resource "aws_s3_bucket_public_access_block" "website_logs" {
-  bucket = aws_s3_bucket.website_logs.id
-
-  block_public_acls       = true
-  block_public_policy     = true
-  restrict_public_buckets = true
-  ignore_public_acls      = true
-
-}
 
 locals {
   s3_origin_id = "cla-website-root"
@@ -111,20 +60,6 @@ data "aws_iam_policy_document" "cla-website-accessible-from-cdn" {
     }
   }
 }
-
-data "aws_iam_policy_document" "cla-website-logs-document" {
-  statement {
-    actions   = ["s3:PutReplicationConfiguration"]
-    resources = [aws_s3_bucket.website_logs.arn]
-  }
-}
-
-resource "aws_s3_bucket_policy" "cla-website-logs-document" {
-  bucket = aws_s3_bucket.website_logs.id
-  policy = data.aws_iam_policy_document.cla-website-logs-document.json
-}
-
-
 
 resource "aws_s3_bucket_policy" "cla-website-accessible-from-cdn" {
   bucket = aws_s3_bucket.website_root.id
