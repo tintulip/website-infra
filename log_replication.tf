@@ -148,7 +148,6 @@ resource "aws_s3_bucket" "website_logs" {
 
     rules {
       id     = "cla-archive-app-logs"
-      prefix = "cla-archive"
       status = "Enabled"
 
 
