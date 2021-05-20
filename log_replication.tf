@@ -85,7 +85,7 @@ data "aws_iam_policy_document" "log_replication" {
     condition {
       test     = "StringLike"
       variable = "kms:EncryptionContext:aws:s3:arn"
-      values   = ["${aws_s3_bucket.website_logs.arn}/*"]
+      values   = [aws_s3_bucket.website_logs.arn]
     }
 
     resources = [
@@ -107,7 +107,7 @@ data "aws_iam_policy_document" "log_replication" {
     condition {
       test     = "StringLike"
       variable = "kms:EncryptionContext:aws:s3:arn"
-      values   = ["${aws_s3_bucket.website_logs.arn}/*"]
+      values   = [aws_s3_bucket.website_logs.arn]
     }
 
     resources = [
