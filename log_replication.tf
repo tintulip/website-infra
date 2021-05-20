@@ -79,7 +79,7 @@ data "aws_iam_policy_document" "log_replication" {
     condition {
       test     = "StringLike"
       variable = "kms:ViaService"
-      values   = ["s3.amazonaws.com"]
+      values   = ["s3.eu-west-2.amazonaws.com"]
     }
 
     condition {
@@ -101,7 +101,7 @@ data "aws_iam_policy_document" "log_replication" {
     condition {
       test     = "StringLike"
       variable = "kms:ViaService"
-      values   = ["s3.amazonaws.com"]
+      values   = ["s3.eu-west-2.amazonaws.com"]
     }
 
     condition {
