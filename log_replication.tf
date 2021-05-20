@@ -62,7 +62,8 @@ data "aws_iam_policy_document" "log_replication" {
       "s3:ReplicateObject",
       "s3:ReplicateDelete",
       "s3:ReplicateTags",
-      "s3:GetObjectVersionTagging"
+      "s3:GetObjectVersionTagging",
+      "s3:ObjectOwnerOverrideToBucketOwner"
     ]
 
     resources = [
