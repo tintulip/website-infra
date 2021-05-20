@@ -123,7 +123,7 @@ resource "aws_s3_bucket" "website_logs" {
   #checkov:skip=CKV_AWS_144:Not required to have cross region enabled
 
   bucket = "${var.website_name}-logs"
-  acl    = "private"
+  acl    = "log-delivery-write"
 
   versioning {
     enabled = true
