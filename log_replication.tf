@@ -29,7 +29,7 @@ resource "aws_iam_policy" "log_replication" {
 
 resource "aws_iam_role_policy_attachment" "log_replication" {
   policy_arn = aws_iam_policy.log_replication.arn
-  role       = "log-replication"
+  role       = aws_iam_role.log_replication.name
 }
 
 data "aws_iam_policy_document" "log_replication" {
@@ -123,7 +123,7 @@ resource "aws_s3_bucket" "website_logs" {
   #checkov:skip=CKV_AWS_144:Not required to have cross region enabled
 
   bucket = "${var.website_name}-logs"
-  acl    = "log-delivery-write"
+  acl    = "private"
 
   versioning {
     enabled = true
