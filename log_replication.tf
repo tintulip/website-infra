@@ -34,6 +34,7 @@ resource "aws_iam_role_policy_attachment" "log_replication" {
 }
 
 data "aws_iam_policy_document" "log_replication" {
+  #checkov:skip=CKV_AWS_111:Allow KMS decrypt/encrypt on any resource
   statement {
     actions = [
       "s3:GetReplicationConfiguration",
