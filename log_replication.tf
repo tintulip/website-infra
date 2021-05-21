@@ -22,6 +22,10 @@ locals {
   log_rep_kms_key = "arn:aws:kms:eu-west-2:689141309029:key/108cb585-3def-4a0a-99c7-fe150c257d6a"
 }
 
+data "aws_kms_key" "s3" {
+  key_id = "alias/s3"
+}
+
 
 resource "aws_iam_policy" "log_replication" {
   policy = data.aws_iam_policy_document.log_replication.json
@@ -86,6 +90,15 @@ data "aws_iam_policy_document" "log_replication" {
 
     resources = [
       "*"
+    ]
+  }
+
+  statement {
+    actions = [
+      "kms:Decrypt"
+    ]
+    resources = [
+      data.aws_kms_key.s3.arn
     ]
   }
 
@@ -164,8 +177,7 @@ resource "aws_s3_bucket" "website_logs" {
   server_side_encryption_configuration {
     rule {
       apply_server_side_encryption_by_default {
-        kms_master_key_id = local.log_rep_kms_key
-        sse_algorithm     = "aws:kms"
+        sse_algorithm = "aws:kms"
       }
     }
   }
