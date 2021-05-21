@@ -19,7 +19,7 @@ POLICY
 }
 
 data "aws_kms_key" "s3" {
-  key_id = "alias/aws/s3"
+  key_id = "arn:aws:kms:eu-west-2:${var.log_archive_id}:alias/s3/log-archive"
 }
 
 resource "aws_iam_policy" "log_replication" {
