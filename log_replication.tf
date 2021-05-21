@@ -83,14 +83,8 @@ data "aws_iam_policy_document" "log_replication" {
       values   = ["s3.eu-west-2.amazonaws.com"]
     }
 
-    condition {
-      test     = "StringLike"
-      variable = "kms:EncryptionContext:aws:s3:arn"
-      values   = [aws_s3_bucket.website_logs.arn]
-    }
-
     resources = [
-      local.log_rep_kms_key
+      "*"
     ]
   }
 
@@ -105,14 +99,8 @@ data "aws_iam_policy_document" "log_replication" {
       values   = ["s3.eu-west-2.amazonaws.com"]
     }
 
-    condition {
-      test     = "StringLike"
-      variable = "kms:EncryptionContext:aws:s3:arn"
-      values   = [aws_s3_bucket.website_logs.arn]
-    }
-
     resources = [
-      local.log_rep_kms_key
+      "*"
     ]
   }
 }
