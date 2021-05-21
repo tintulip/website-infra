@@ -62,7 +62,7 @@ jobs:
       run: terraform init
 
     - name: Terraform Plan
-      run: terraform plan -no-color -out=production.tfplan -var-file=env_vars/production.tfvars
+      run: TF_LOG=DEBUG terraform plan -no-color -out=production.tfplan -var-file=env_vars/production.tfvars
 
     - name: Show Terraform Plan
       run: terraform show -no-color production.tfplan
