@@ -18,9 +18,10 @@ resource "aws_iam_role" "log_replication" {
 POLICY
 }
 
-data "aws_kms_key" "s3" {
-  key_id = "arn:aws:kms:eu-west-2:${var.log_archive_id}:alias/s3/log-archive"
+locals {
+  log_rep_kms_key = "arn:aws:kms:eu-west-2:689141309029:key/108cb585-3def-4a0a-99c7-fe150c257d6a"
 }
+
 
 resource "aws_iam_policy" "log_replication" {
   policy = data.aws_iam_policy_document.log_replication.json
@@ -89,7 +90,7 @@ data "aws_iam_policy_document" "log_replication" {
     }
 
     resources = [
-      data.aws_kms_key.s3.arn
+      local.log_rep_kms_key
     ]
   }
 
@@ -111,7 +112,7 @@ data "aws_iam_policy_document" "log_replication" {
     }
 
     resources = [
-      data.aws_kms_key.s3.arn
+      local.log_rep_kms_key
     ]
   }
 }
@@ -156,7 +157,7 @@ resource "aws_s3_bucket" "website_logs" {
         bucket             = "arn:aws:s3:::cla-app-logs"
         storage_class      = "STANDARD"
         account_id         = "689141309029"
-        replica_kms_key_id = data.aws_kms_key.s3.arn
+        replica_kms_key_id = local.log_rep_kms_key
 
         access_control_translation {
           owner = "Destination"
