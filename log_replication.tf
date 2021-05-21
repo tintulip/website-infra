@@ -124,7 +124,7 @@ resource "aws_s3_bucket" "website_logs" {
   #checkov:skip=CKV_AWS_52:Bucket is created by a pipeline
   #checkov:skip=CKV_AWS_18:Access logging needs to go into a cross account bucket
   #checkov:skip=CKV_AWS_144:Not required to have cross region enabled
-
+  #checkov:skip=CKV_AWS_145:Cannot use KMS for cross-account log replication
   bucket = "${var.website_name}-logs"
   acl    = "log-delivery-write"
 
