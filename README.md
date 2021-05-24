@@ -19,7 +19,7 @@ The following resources have been created through a protected endpoint.
 ## Creates
 
 - S3 bucket for website static files
-- Bucket for access logging and replication rules to log-archive account
+- Bucket for access logging expired after 30 days and replication rules to log-archive account
 - CloudFront distribution for access to static resources
 - IAM user and permission to push content to website
 
