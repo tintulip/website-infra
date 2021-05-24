@@ -19,7 +19,7 @@ The following resources have been created through a protected endpoint.
 ## Creates
 
 - S3 bucket for website static files
-- Bucket for access logging
+- Bucket for access logging and replication rules to log-archive account
 - CloudFront distribution for access to static resources
 - IAM user and permission to push content to website
 
@@ -38,3 +38,7 @@ Similar reasoning applies to not adding a WAF, as Checkov and tfsec suggest.
 Protocol version has been updated from the suggested one as per tfsec suggestion.
 
 DNS is not in scope as it's not necessary to access the website, costly and there are concerns over which DNS name to use and its management.
+
+## S3 log replication
+
+Website access is logged in an S3 bucket that is replicated in the log archive account. Since objects are encrypted on the source bucket, the replication is using a kms key to encrypt and decrypt the objects during the replication to the destination bucket. This key is stored in the log-archive account.

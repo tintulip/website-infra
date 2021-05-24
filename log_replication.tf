@@ -26,7 +26,6 @@ data "aws_kms_key" "s3" {
   key_id = "alias/aws/s3"
 }
 
-
 resource "aws_iam_policy" "log_replication" {
   policy = data.aws_iam_policy_document.log_replication.json
   name   = "log-replication"
