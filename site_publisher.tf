@@ -17,7 +17,7 @@ resource "aws_iam_access_key" "site_publisher_key" {
 }
 
 resource "aws_iam_policy" "site_publisher_policy" {
-  name   = "site-publisher-policy"
+  name   = "site-publisher"
   policy = data.aws_iam_policy_document.site_publisher_assume_role.json
 }
 
