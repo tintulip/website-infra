@@ -16,12 +16,15 @@ resource "aws_iam_access_key" "site_publisher_key" {
 
 }
 
-resource "aws_iam_user_policy" "site_publisher_policy" {
-  #checkov:skip=CKV_AWS_40:Only this machine user should be allowed to assume the role
+resource "aws_iam_policy" "site_publisher_policy" {
   name   = "site-publisher-policy"
-  user   = aws_iam_user.site_publisher.name
   policy = data.aws_iam_policy_document.site_publisher_assume_role.json
+}
 
+resource "aws_iam_user_policy_attachment" "site_policy_attachment" {
+  #checkov:skip=CKV_AWS_40:Only this machine user should be allowed to assume the role
+  user       = aws_iam_user.site_publisher.name
+  policy_arn = aws_iam_policy.site_publisher_policy.arn
 }
 
 resource "aws_iam_role" "site_publisher_role" {
