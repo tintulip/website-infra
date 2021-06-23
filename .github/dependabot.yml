@@ -6,3 +6,10 @@ updates:
       interval: "daily"
     reviewers:
       - tintulip/dali-platform-dev-laptops
+
+  - package-ecosystem: "terraform"
+    directory: "/"
+    schedule:
+      interval: "daily"
+    reviewers:
+      - tintulip/dali-platform-dev-laptops
