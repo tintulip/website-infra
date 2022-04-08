@@ -68,7 +68,7 @@ jobs:
       run: terraform show -no-color production.tfplan
 
     - name: Publish artifact
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: ${{ env.env_name }}.tfplan
         path: ${{ github.workspace }}/${{ env.env_name }}.tfplan
