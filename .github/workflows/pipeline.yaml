@@ -31,7 +31,7 @@ jobs:
         framework: terraform
 
     - name: Setup Terraform
-      uses: hashicorp/setup-terraform@v1.3.2
+      uses: hashicorp/setup-terraform@v2.0.3
       with:
         terraform_version: ${{ env.tf_version }}
 
@@ -55,7 +55,7 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v2.3.4
     - name: Setup Terraform
-      uses: hashicorp/setup-terraform@v1.3.2
+      uses: hashicorp/setup-terraform@v2.0.3
       with:
         terraform_version: ${{ env.tf_version }}
     - name: Terraform Init
@@ -89,7 +89,7 @@ jobs:
         name: ${{ env.env_name }}.tfplan
         path: ${{ github.workspace }}/
     - name: Setup Terraform
-      uses: hashicorp/setup-terraform@v1.3.2
+      uses: hashicorp/setup-terraform@v2.0.3
       with:
         terraform_version: ${{ env.tf_version }}
     - name: Terraform Init
